@@ -486,11 +486,11 @@
         const gameOverDiv = document.getElementById('gameOver');
         const finalScoreElement = document.getElementById('finalScore');
 
-        // Game settings - Map sizes (different number of cells, same canvas size)
+        // Game settings - Map sizes (proper canvas dimensions for each size)
         const mapSizes = {
-            small: { gridSize: 30, tileCount: 15 },    // 15x15 cells, larger cells
-            medium: { gridSize: 20, tileCount: 20 },   // 20x20 cells, medium cells  
-            large: { gridSize: 16, tileCount: 25 }     // 25x25 cells, smaller cells
+            small: { gridSize: 26, tileCount: 15, canvasSize: 390 },    // 15x15 cells, 26px cells = 390px
+            medium: { gridSize: 20, tileCount: 20, canvasSize: 400 },   // 20x20 cells, 20px cells = 400px  
+            large: { gridSize: 16, tileCount: 25, canvasSize: 400 }     // 25x25 cells, 16px cells = 400px
         };
 
         const gameSpeeds = {
@@ -504,6 +504,7 @@
         let currentSpeed = 'normal';
         let gridSize = mapSizes[currentMapSize].gridSize;
         let tileCount = mapSizes[currentMapSize].tileCount;
+        let canvasSize = mapSizes[currentMapSize].canvasSize;
         let gameSpeed = gameSpeeds[currentSpeed];
 
         // Snake variables
@@ -607,12 +608,13 @@
         // Update canvas size based on selected map size
         function updateCanvasSize() {
             const size = mapSizes[currentMapSize];
-            // Keep canvas size fixed at 400x400, only change grid size and tile count
-            canvas.width = 400;
-            canvas.height = 400;
+            // Set canvas size to properly fit the grid
+            canvas.width = size.canvasSize;
+            canvas.height = size.canvasSize;
             gridSize = size.gridSize;
             tileCount = size.tileCount;
-            console.log(`Map updated: ${tileCount}x${tileCount} cells, Grid: ${gridSize}px per cell`);
+            canvasSize = size.canvasSize;
+            console.log(`Map updated: ${tileCount}x${tileCount} cells, Grid: ${gridSize}px per cell, Canvas: ${canvasSize}x${canvasSize}px`);
         }
 
         // Handle map size change
