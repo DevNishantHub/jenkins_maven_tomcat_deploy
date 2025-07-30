@@ -372,11 +372,11 @@
             </div>
             
             <div class="map-size-selector">
-                <h3>Map Size:</h3>
+                <h3>Map Size (Number of Cells):</h3>
                 <div class="size-buttons">
-                    <button class="size-btn" data-size="small">Small</button>
-                    <button class="size-btn active" data-size="medium">Medium</button>
-                    <button class="size-btn" data-size="large">Large</button>
+                    <button class="size-btn" data-size="small">Small (15x15)</button>
+                    <button class="size-btn active" data-size="medium">Medium (20x20)</button>
+                    <button class="size-btn" data-size="large">Large (25x25)</button>
                 </div>
             </div>
             
@@ -414,16 +414,16 @@
         const gameOverDiv = document.getElementById('gameOver');
         const finalScoreElement = document.getElementById('finalScore');
 
-        // Game settings - Map sizes
+        // Game settings - Map sizes (different number of cells, same canvas size)
         const mapSizes = {
-            small: { width: 300, height: 300, gridSize: 15 },
-            medium: { width: 400, height: 400, gridSize: 20 },
-            large: { width: 500, height: 500, gridSize: 25 }
+            small: { gridSize: 30, tileCount: 15 },    // 15x15 cells, larger cells
+            medium: { gridSize: 20, tileCount: 20 },   // 20x20 cells, medium cells  
+            large: { gridSize: 16, tileCount: 25 }     // 25x25 cells, smaller cells
         };
 
         let currentMapSize = 'medium';
         let gridSize = mapSizes[currentMapSize].gridSize;
-        let tileCount = mapSizes[currentMapSize].width / gridSize;
+        let tileCount = mapSizes[currentMapSize].tileCount;
 
         // Snake variables
         let snake = [
@@ -471,11 +471,12 @@
         // Update canvas size based on selected map size
         function updateCanvasSize() {
             const size = mapSizes[currentMapSize];
-            canvas.width = size.width;
-            canvas.height = size.height;
+            // Keep canvas size fixed at 400x400, only change grid size and tile count
+            canvas.width = 400;
+            canvas.height = 400;
             gridSize = size.gridSize;
-            tileCount = size.width / gridSize;
-            console.log(`Canvas updated: ${canvas.width}x${canvas.height}, Grid: ${gridSize}, Tiles: ${tileCount}`);
+            tileCount = size.tileCount;
+            console.log(`Map updated: ${tileCount}x${tileCount} cells, Grid: ${gridSize}px per cell`);
         }
 
         // Handle map size change
@@ -515,7 +516,7 @@
             drawGame();
             
             // Show confirmation
-            alert(`Map size changed to ${newSize.toUpperCase()}!\nCanvas: ${canvas.width}x${canvas.height} pixels`);
+            alert(`Map size changed to ${newSize.toUpperCase()}!\nGrid: ${tileCount}x${tileCount} cells\nCell size: ${gridSize}px`);
         }
 
         // Handle keyboard input
