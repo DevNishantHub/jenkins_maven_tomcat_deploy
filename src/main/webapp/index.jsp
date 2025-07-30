@@ -66,11 +66,12 @@
         }
 
         #gameCanvas {
-            border: 2px solid #dee2e6;
+            border: 3px solid #495057;
             border-radius: 8px;
-            background: #f8f9fa;
+            background: #e9ecef;
             max-width: 100%;
             height: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .game-controls {
@@ -242,43 +243,50 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: #343a40;
             padding: 40px;
             border-radius: 12px;
-            border: 1px solid #e9ecef;
+            border: 2px solid #495057;
             text-align: center;
             z-index: 1000;
-            min-width: 300px;
+            min-width: 320px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .game-over h2 {
-            color: #dc3545;
-            font-size: 2rem;
+            color: #f8f9fa;
+            font-size: 2.2rem;
             margin-bottom: 20px;
-            font-weight: 600;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .game-over p {
-            font-size: 1.125rem;
-            margin-bottom: 24px;
-            color: #6c757d;
+            font-size: 1.25rem;
+            margin-bottom: 28px;
+            color: #adb5bd;
+            font-weight: 500;
         }
 
         #playAgainBtn {
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 500;
-            border: 2px solid #28a745;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 2px solid #6c757d;
             border-radius: 8px;
-            background: #28a745;
-            color: white;
+            background: #495057;
+            color: #f8f9fa;
             cursor: pointer;
             transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         #playAgainBtn:hover {
-            background: #218838;
-            border-color: #218838;
+            background: #6c757d;
+            border-color: #6c757d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .hidden {
@@ -875,12 +883,12 @@
 
         // Draw the game
         function drawGame() {
-            // Clear canvas with light background
-            ctx.fillStyle = '#f8f9fa';
+            // Clear canvas with medium grey background
+            ctx.fillStyle = '#e9ecef';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Draw subtle grid lines
-            ctx.strokeStyle = '#e9ecef';
+            // Draw visible grid lines with darker grey
+            ctx.strokeStyle = '#adb5bd';
             ctx.lineWidth = 1;
             for (let i = 0; i <= tileCount; i++) {
                 ctx.beginPath();
@@ -894,15 +902,15 @@
                 ctx.stroke();
             }
             
-            // Draw snake with modern flat design
+            // Draw snake with dark grey tones
             for (let i = 0; i < snake.length; i++) {
                 const segment = snake[i];
                 
                 // Different colors for head and body
                 if (i === 0) {
-                    ctx.fillStyle = '#495057'; // Head - darker grey
+                    ctx.fillStyle = '#212529'; // Head - darkest grey
                 } else {
-                    ctx.fillStyle = '#6c757d'; // Body - medium grey
+                    ctx.fillStyle = '#343a40'; // Body - dark grey
                 }
                 
                 ctx.fillRect(
@@ -913,8 +921,8 @@
                 );
             }
             
-            // Draw food as a simple circle
-            ctx.fillStyle = '#dc3545';
+            // Draw food as a dark circle with light border
+            ctx.fillStyle = '#495057';
             ctx.beginPath();
             ctx.arc(
                 food.x * gridSize + gridSize / 2,
@@ -924,6 +932,11 @@
                 2 * Math.PI
             );
             ctx.fill();
+            
+            // Add a light border to food for better visibility
+            ctx.strokeStyle = '#6c757d';
+            ctx.lineWidth = 2;
+            ctx.stroke();
         }
 
         // Add some visual effects
