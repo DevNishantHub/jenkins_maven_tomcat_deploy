@@ -125,6 +125,7 @@
 <body>
     <div class="game-container">
         <h1>🐍 Snake Game hisss s</h1>
+        <h1>This is a sanke game </h1>
         
         <div class="score-board">
             <div>Score: <span id="score">0</span></div>
